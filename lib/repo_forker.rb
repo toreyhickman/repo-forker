@@ -2,6 +2,7 @@ require "repo_forker/version"
 require "repo_forker/configuration"
 require "repo_forker/uri_builder"
 require "repo_forker/http_client_builder"
+require "repo_forker/request_builder"
 require "net/http"
 
 
