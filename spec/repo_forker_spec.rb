@@ -44,4 +44,38 @@ describe RepoForker do
       expect(RepoForker.client.port).to eq 443
     end
   end
+
+  describe ".fork" do
+    let(:repo_1) { "some_repo" }
+    let(:repo_2) { "some_other_repo" }
+    let(:list)   { [repo_1, repo_2] }
+
+    let(:mock_api_key)     { "123456" }
+    let(:mock_source)      { "good_coder" }
+    let(:mock_destination) { "helper" }
+
+    before(:each) do
+      RepoForker.configure do |config|
+        config.api_key     = mock_api_key
+        config.source      = mock_source
+        config.destination = mock_destination
+      end
+    end
+
+    after(:each) do
+      RepoForker.reset
+    end
+
+    describe "for each repo in list" do
+      it "builds a URI object" do
+        allow(RepoForker::URI_Builder).to receive(:build)
+
+        list.each do |repo_name|
+          expect(RepoForker::URI_Builder).to receive(:build).with(repo_name)
+        end
+
+        RepoForker.fork list
+      end
+    end
+  end
 end
