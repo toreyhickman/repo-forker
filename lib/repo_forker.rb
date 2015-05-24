@@ -1,5 +1,7 @@
 require "repo_forker/version"
+require "repo_forker/configuration"
 
 module RepoForker
-  # Your code goes here...
+  extend Configuration
+
 end
