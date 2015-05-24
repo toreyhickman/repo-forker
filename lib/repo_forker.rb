@@ -2,6 +2,8 @@ require "repo_forker/version"
 require "repo_forker/configuration"
 require "repo_forker/uri_builder"
 require "repo_forker/http_client_builder"
+require "net/http"
+
 
 module RepoForker
   extend Configuration
