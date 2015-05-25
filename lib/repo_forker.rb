@@ -1,6 +1,6 @@
 require "repo_forker/version"
 require "repo_forker/configuration"
-require "repo_forker/uri_builder"
+require "repo_forker/forking_uri"
 require "repo_forker/client"
 require "repo_forker/request_builder"
 require "net/http"
@@ -15,7 +15,7 @@ module RepoForker
 
   def self.fork(repo_names = [])
     repo_names.each do |repo_name|
-      uri = URI_Builder.build repo_name
+      uri = ForkingURI.create repo_name
     end
 
     return repo_names

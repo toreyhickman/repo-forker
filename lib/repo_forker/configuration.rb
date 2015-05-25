@@ -8,7 +8,7 @@ module RepoForker
     VALID_OPTIONS_KEYS = [:api_key, :source, :destination]
     VALID_CONFIG_KEYS = VALID_CONNECTION_KEYS + VALID_OPTIONS_KEYS
 
-    DEFAULT_ENDPOINT = "https://api.github.com/"
+    DEFAULT_ENDPOINT = "https://api.github.com"
     DEFAULT_USER_AGENT = "RepoForker Ruby Gem #{RepoForker::VERSION}"
 
     DEFAULT_API_KEY = nil
