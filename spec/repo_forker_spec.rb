@@ -32,16 +32,8 @@ describe RepoForker do
   end
 
   describe ".client" do
-    it "returns a Ruby Net::HTTP object" do
-      expect(RepoForker.client).to be_an_instance_of Net::HTTP
-    end
-
-    it "has the host of the GitHub api" do
-      expect(RepoForker.client.address).to eq "api.github.com"
-    end
-
-    it "uses 443 as its port" do
-      expect(RepoForker.client.port).to eq 443
+    it "returns a Client object" do
+      expect(RepoForker.client).to be_an_instance_of RepoForker::Client
     end
   end
 

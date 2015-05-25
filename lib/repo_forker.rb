@@ -1,7 +1,7 @@
 require "repo_forker/version"
 require "repo_forker/configuration"
 require "repo_forker/uri_builder"
-require "repo_forker/http_client_builder"
+require "repo_forker/client"
 require "repo_forker/request_builder"
 require "net/http"
 
@@ -10,7 +10,7 @@ module RepoForker
   extend Configuration
 
   def self.client
-    @client ||= HTTPClientBuilder.build
+    @client ||= Client.create
   end
 
   def self.fork(repo_names = [])
