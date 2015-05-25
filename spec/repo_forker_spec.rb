@@ -60,10 +60,10 @@ describe RepoForker do
 
     describe "for each repo in list" do
       it "builds a ForkingURI object" do
-        allow(RepoForker::ForkingURI).to receive(:create)
+        allow(RepoForker::ForkingURI).to receive(:build)
 
         list.each do |repo_name|
-          expect(RepoForker::ForkingURI).to receive(:create).with(repo_name)
+          expect(RepoForker::ForkingURI).to receive(:build).with(repo_name)
         end
 
         RepoForker.fork list

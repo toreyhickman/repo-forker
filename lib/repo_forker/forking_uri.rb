@@ -1,7 +1,7 @@
 module RepoForker
   class ForkingURI < URI::HTTPS
-    def self.create(repo_name)
-      build(build_params(repo_name))
+    def self.build(repo_name)
+      super(build_params(repo_name))
     end
 
     private
