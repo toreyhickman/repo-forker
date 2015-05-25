@@ -1,9 +1,12 @@
 module RepoForker
   class Client < Net::HTTP
-    def self.create
-      client = new(uri.host, uri.port)
-      client.use_ssl = true
-      client
+    def self.new(host = uri.host, port = uri.port)
+      super(host, port)
+    end
+
+    def initialize(host, port)
+      super
+      self.use_ssl = true
     end
 
     private

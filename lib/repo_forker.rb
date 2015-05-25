@@ -10,7 +10,7 @@ module RepoForker
   extend Configuration
 
   def self.client
-    @client ||= Client.create
+    @client ||= Client.new
   end
 
   def self.fork(repo_names = [])

@@ -1,8 +1,8 @@
 require 'repo_forker'
 
 describe RepoForker::Client do
-  describe ".create" do
-    let(:client) { RepoForker::Client.create }
+  describe ".new" do
+    let(:client) { RepoForker::Client.new }
 
     it "is a kind of Ruby Net::HTTP object" do
       expect(client).to be_a_kind_of Net::HTTP
