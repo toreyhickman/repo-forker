@@ -1,9 +1,9 @@
 require "repo_forker"
 
-describe RepoForker::RequestBuilder do
+describe RepoForker::ForkingRequest do
 
   let(:request_path) { "/path_to_repo?with=options" }
-  let(:request) { RepoForker::RequestBuilder.build(request_path) }
+  let(:request) { RepoForker::ForkingRequest.new(request_path) }
 
   let(:fake_api_key)    { "123456" }
   let(:fake_user_agent) { "my app" }
@@ -19,9 +19,9 @@ describe RepoForker::RequestBuilder do
     RepoForker.reset
   end
 
-  describe ".build" do
-    it "returns a Net::HTTP::Post object" do
-      expect(request).to be_an_instance_of Net::HTTP::Post
+  describe ".new" do
+    it "is a kind of Net::HTTP::Post object" do
+      expect(request).to be_a_kind_of Net::HTTP::Post
     end
 
     it "assigns the user-agent header" do
