@@ -38,6 +38,8 @@ describe RepoForker do
   end
 
   describe ".fork" do
+    let(:client) { RepoForker.client }
+
     let(:repo_1) { "some_repo" }
     let(:repo_2) { "some_other_repo" }
     let(:list)   { [repo_1, repo_2] }
@@ -58,16 +60,20 @@ describe RepoForker do
       RepoForker.reset
     end
 
-    describe "for each repo in list" do
-      it "builds a ForkingURI object" do
-        allow(RepoForker::ForkingURI).to receive(:build)
+    it "makes a request to fork each repo in the list" do
+      allow(client).to receive(:request)
 
-        list.each do |repo_name|
-          expect(RepoForker::ForkingURI).to receive(:build).with(repo_name)
-        end
+      list.each do |repo_name|
+        fake_uri = double("uri", request_uri: "/path/to/#{repo_name}")
+        allow(RepoForker::ForkingURI).to receive(:build).with(repo_name).and_return(fake_uri)
 
-        RepoForker.fork list
+        fake_request = double("request")
+        allow(RepoForker::ForkingRequest).to receive(:new).with(fake_uri.request_uri).and_return(fake_request)
+
+        expect(client).to receive(:request).with(fake_request)
       end
+
+      RepoForker.fork list
     end
   end
 end

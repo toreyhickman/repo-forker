@@ -15,7 +15,10 @@ module RepoForker
 
   def self.fork(repo_names = [])
     repo_names.each do |repo_name|
-      uri = ForkingURI.build repo_name
+      uri = ForkingURI.build(repo_name)
+      request_details = ForkingRequest.new(uri.request_uri)
+
+      client.request(request_details)
     end
 
     return repo_names
