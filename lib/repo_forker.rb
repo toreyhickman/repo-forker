@@ -1,10 +1,10 @@
+require "net/http"
+
 require "repo_forker/version"
 require "repo_forker/configuration"
 require "repo_forker/forking_uri"
 require "repo_forker/client"
 require "repo_forker/forking_request"
-require "net/http"
-
 
 module RepoForker
   extend Configuration
