@@ -1,4 +1,7 @@
 # RepoForker
+
+![Travis CI Build Status](https://api.travis-ci.org/toreyhickman/repo-forker.svg?branch=master)
+
 This gem is written to facilitate the forking of a list of GitHub repositories from one user or organization to another.
 
 
