@@ -14,13 +14,22 @@ module RepoForker
   end
 
   def self.fork(repo_names = [])
-    repo_names.each do |repo_name|
+    repo_names.each_with_object(new_memo) do |repo_name, memo|
       uri = ForkingURI.build(repo_name)
       request_details = ForkingRequest.new(uri.request_uri)
 
-      client.request(request_details)
+      response = client.request(request_details)
+      record(response, memo, repo_name)
     end
+  end
 
-    return repo_names
+  private
+  def self.new_memo
+    { successful_requests: [], failed_requests: [] }
+  end
+
+  def self.record(response, memo, repo_name)
+    key = response.code == "202" ? :successful_requests : :failed_requests
+    memo[key] << repo_name
   end
 end

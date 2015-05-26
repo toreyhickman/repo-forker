@@ -61,6 +61,7 @@ describe RepoForker do
     end
 
     it "makes a request to fork each repo in the list" do
+      allow(RepoForker).to receive(:record)
       allow(client).to receive(:request)
 
       list.each do |repo_name|
@@ -74,6 +75,22 @@ describe RepoForker do
       end
 
       RepoForker.fork list
+    end
+
+    it "returns a record of successful and failed requests" do
+      list.each do |repo_name|
+        fake_uri = double("uri", request_uri: "/path/to/#{repo_name}")
+        allow(RepoForker::ForkingURI).to receive(:build).with(repo_name).and_return(fake_uri)
+
+        fake_request = double("request")
+        allow(RepoForker::ForkingRequest).to receive(:new).with(fake_uri.request_uri).and_return(fake_request)
+      end
+
+      successful_response = double("success", code: "202")
+      failed_response = double("fail", code: "404")
+      allow(client).to receive(:request).and_return(successful_response, failed_response)
+
+      expect(RepoForker.fork list).to eq({ successful_requests: [repo_1], failed_requests: [repo_2] })
     end
   end
 end
